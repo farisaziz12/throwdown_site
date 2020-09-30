@@ -1,28 +1,18 @@
-import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import NavBar from "../components/NavBar";
+import Homepage from "../components/Homepage";
+import Footer from "../components/Footer";
+import Metadata from "../components/Metadata";
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Xmas Throwdown</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+      <Metadata title={"Xmas Throwdown"} />
+      <NavBar />
       <main className={styles.main}>
-        <h1 className={styles.title}>Xmas Throwdown</h1>
-        <h3>Coming Soon...</h3>
+        <Homepage />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://antidote-gym.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Antidote
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }
