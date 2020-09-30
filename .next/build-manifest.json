@@ -28,11 +28,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
-    ],
-    "/workouts/event-1": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/workouts/event-1.js"
     ]
   },
   "ampFirstPages": []
