@@ -3,10 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/schedule": "pages/schedule.js",
-  "/workouts/event-2": "pages/workouts/event-2.js",
-  "/workouts/event-3": "pages/workouts/event-3.js",
-  "/workouts/event-1": "pages/workouts/event-1.js",
-  "/about": "pages/about.js"
+  "/workouts/event-1": "pages/workouts/event-1.js"
 }
