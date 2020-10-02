@@ -7,7 +7,8 @@ import styles from "../styles/Home.module.css";
 import { app } from "../config/firebase";
 import { useAuth } from "../hooks/useAuth";
 import { Subject, timer } from "rxjs";
-import { debounce, distinct, filter } from "rxjs/operators";
+import { debounce, filter } from "rxjs/operators";
+
 const emailStream = new Subject();
 
 export default function login() {
@@ -24,21 +25,29 @@ export default function login() {
   const [noConfirmPassword, setNoConfirmPassword] = useState(false);
   const [createAccount, setCreateAccount] = useState(false);
   const [existingAccount, setExitstingAccount] = useState(false);
+  const [noPasswordMatch, setNoPasswordMatch] = useState(false);
+
   const router = useRouter();
   const auth = useAuth();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const onSubmitLogin = async () => {
-    auth.signIn(email, password);
-    setNoPassword(false);
-    setNoEmail(false);
-  };
+  useEffect(() => {
+    app.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, []);
 
-  const onSubmitSignup = async () => {
-    auth.signIn(email, password);
-    setNoPassword(false);
-    setNoEmail(false);
-  };
+  useEffect(() => {
+    if (password && confirmPassword) {
+      if (confirmPassword !== password) {
+        setNoPasswordMatch(true);
+      } else {
+        setNoPasswordMatch(false);
+      }
+    }
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     let subscription;
@@ -62,18 +71,32 @@ export default function login() {
     }
   }, [createAccount]);
 
-  useEffect(() => {
-    app.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        setUser(user);
-        console.log(user);
-      }
-    });
-  }, []);
+  const onSubmitLogin = () => {
+    auth.signIn(email, password);
+    setNoPassword(false);
+    setNoEmail(false);
+  };
+
+  const onSubmitSignup = () => {
+    auth.signUp(firstName, lastName, email, password);
+    setNoPassword(false);
+    setNoEmail(false);
+  };
 
   if (user) {
     router.push("/");
   }
+  const formComplete =
+    firstName &&
+    lastName &&
+    email &&
+    password &&
+    confirmPassword &&
+    noPasswordMatch === false &&
+    existingAccount == false
+      ? true
+      : false;
+
   return (
     <div className={styles.container}>
       <Metadata title="Xmas Throwdown Login" />
@@ -293,9 +316,20 @@ export default function login() {
               <div id="validationServer03Feedback" className="invalid-feedback">
                 Please confirm password.
               </div>
+              {noPasswordMatch && (
+                <div class="alert alert-danger" role="alert">
+                  Passwords do not match.
+                </div>
+              )}
             </div>
             <div className="form-group form-check"></div>
-            <button type="submit" className="btn btn-primary">
+            <button
+              disabled={!formComplete}
+              type="submit"
+              className={
+                formComplete ? "btn btn-primary" : "btn btn-primary disabled"
+              }
+            >
               Create Account
             </button>
           </form>

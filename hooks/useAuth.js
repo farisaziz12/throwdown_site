@@ -41,12 +41,30 @@ const useAuthProvider = () => {
     return auth.signOut().then(() => setUser(false));
   };
 
-  const signUp = ({ name, email, password }) => {
+  const signUp = (firstName, lastName, email, password) => {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
         auth.currentUser.sendEmailVerification();
         return setUser(response.user);
+      })
+      .then(() => {
+        fetch("https://wod-with-faris-backend.herokuapp.com/user/create", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            first_name: firstName,
+            last_name: lastName,
+            tokens: 0,
+            coach: false,
+          }),
+        })
+          .then((resp) => resp.json())
+          .then((resp) => console.log(resp));
       })
       .catch((error) => {
         return { error };
