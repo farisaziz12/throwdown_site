@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 import { app } from "../config/firebase";
 import { useAuth } from "../hooks/useAuth";
 import { Subject, timer } from "rxjs";
-import { debounce, distinct } from "rxjs/operators";
+import { debounce, distinct, filter } from "rxjs/operators";
 const emailStream = new Subject();
 
 export default function login() {
@@ -23,6 +23,7 @@ export default function login() {
   const [noPassword, setNoPassword] = useState(false);
   const [noConfirmPassword, setNoConfirmPassword] = useState(false);
   const [createAccount, setCreateAccount] = useState(false);
+  const [existingAccount, setExitstingAccount] = useState(false);
   const router = useRouter();
   const auth = useAuth();
   const { register, handleSubmit, watch, errors } = useForm();
@@ -40,13 +41,24 @@ export default function login() {
   };
 
   useEffect(() => {
+    let subscription;
     if (createAccount) {
-      emailStream
+      subscription = emailStream
         .pipe(
-          distinct(),
+          filter((email) => email !== ""),
           debounce(() => timer(750))
         )
-        .subscribe((email) => console.log(email));
+        .subscribe(async (email) => {
+          const foundAccount = await fetch(
+            `https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${email}`
+          ).then((resp) => resp.json());
+          if (foundAccount) {
+            setExitstingAccount(true);
+          } else {
+            setExitstingAccount(false);
+          }
+        });
+      return () => subscription.unsubscribe();
     }
   }, [createAccount]);
 
@@ -162,7 +174,7 @@ export default function login() {
                 className={
                   noFirstName ? "form-control is-invalid" : "form-control"
                 }
-                id="exampleInputEmail2"
+                id="exampleInputFirstName"
                 aria-describedby="emailHelp"
               />
               <div id="validationServer03Feedback" className="invalid-feedback">
@@ -185,7 +197,7 @@ export default function login() {
                 className={
                   noLastName ? "form-control is-invalid" : "form-control"
                 }
-                id="exampleInputEmail1"
+                id="exampleInputLastName"
                 aria-describedby="emailHelp"
               />
               <div id="validationServer03Feedback" className="invalid-feedback">
@@ -213,6 +225,11 @@ export default function login() {
               <div id="validationServer03Feedback" className="invalid-feedback">
                 Please provide an email.
               </div>
+              {existingAccount && (
+                <div class="alert alert-danger" role="alert">
+                  An account with this email already exits. Try logging in.
+                </div>
+              )}
               <small id="emailHelp" className="form-text text-muted">
                 If you have a wod-with-faris account you can login using that.
               </small>
