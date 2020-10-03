@@ -23,3 +23,23 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.center-item {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.topspace {
+  margin-top: 10%;
+}
+
+.big-logo {
+  width: auto;
+  height: 200px;
+}
+
+.more-info-modal {
+  min-width: 280px;
+  min-height: 400px;
+}

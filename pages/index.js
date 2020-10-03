@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import NavBar from "../components/NavBar";
-import { content } from "../content/categories";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
 import InfoCard from "../components/InfoCard";
 import countdown from "countdown";
+import FAQ from "../components/FAQ";
+import { content } from "../content/categories";
+import { categories } from "../content/FAQs";
 
 export default function Home() {
   const { ludicrous, spicy, fun } = content;
@@ -19,12 +21,18 @@ export default function Home() {
       setCountdownTimer(timer);
     }, 1000);
   }, []);
+
   return (
     <div className={styles.container}>
       <Metadata title={"Xmas Throwdown"} />
       <NavBar />
       <main className={styles.main}>
         <div>
+          <img
+            alt="antidote-logo"
+            className="big-logo center-item"
+            src="/images/antidote_logo.png"
+          />
           <h1 className={styles.title}>Xmas Throwdown</h1>
           <p className={styles.header}>
             <strong>
@@ -32,15 +40,22 @@ export default function Home() {
             </strong>
           </p>
 
-          <div className={styles.countdown}>
+          <div className={styles.fontandcenter}>
             <h2>Countdown till 05.12.2020</h2>
             <h3>{countdownTimer}</h3>
           </div>
 
-          <div style={{ bottom: "0" }} className="card-group">
-            <InfoCard content={ludicrous} />
-            <InfoCard content={spicy} />
-            <InfoCard content={fun} />
+          <div className="topspace">
+            <h2 className={styles.fontandcenter}>Categories</h2>
+            <div className="card-deck">
+              <InfoCard content={ludicrous} />
+              <InfoCard content={spicy} />
+              <InfoCard content={fun} />
+            </div>
+          </div>
+          <div className="topspace">
+            <h2 className={styles.fontandcenter}>FAQ</h2>
+            <FAQ FAQs={categories} />
           </div>
         </div>
       </main>

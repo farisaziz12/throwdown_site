@@ -326,9 +326,7 @@ export default function login() {
             <button
               disabled={!formComplete}
               type="submit"
-              className={
-                formComplete ? "btn btn-primary" : "btn btn-primary disabled"
-              }
+              className="btn btn-primary"
             >
               Create Account
             </button>

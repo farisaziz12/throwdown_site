@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PopPop from "react-poppop";
+import styles from "../styles/Home.module.css";
 
 export default function InfoCard(props) {
   const { title, description, more_info, requirements, img } = props.content;
@@ -27,18 +28,20 @@ export default function InfoCard(props) {
         onClose={() => toggleShow(false)}
         closeOnOverlay={true}
       >
-        <h1>{title}</h1>
-        <h5>
-          If these requirements align with your abilites then this is the
-          category for you:
-        </h5>
-        <ul>
-          {requirements.map((requirement) => (
-            <strong>
-              <li>{requirement}</li>
-            </strong>
-          ))}
-        </ul>
+        <div className="more-info-modal">
+          <h1 className={styles.fontandcenter}>{title}</h1>
+          <h5>Standards:</h5>
+          <small id="standardsHelp" className="form-text text-muted">
+            At least 2 team members should fit this criteria
+          </small>
+          <ul className="list-group">
+            {requirements.map((requirement) => (
+              <li key={requirement} className="list-group-item">
+                {requirement}
+              </li>
+            ))}
+          </ul>
+        </div>
       </PopPop>
     </div>
   );
