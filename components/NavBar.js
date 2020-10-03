@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 
 export default function NavBar() {
   const [currentPage, setCurrentPage] = useState("/");
+  const auth = useAuth();
 
   useEffect(() => {
     setCurrentPage(window.location.pathname);
@@ -14,6 +16,7 @@ export default function NavBar() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand">Xmas Throwdown</a>
         <button
+          name="navbar-collapse-btn"
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -116,10 +119,20 @@ export default function NavBar() {
               </Link>
             </li>
           </ul>
-
-          <button className="btn btn-outline-success my-2 my-sm-0">
-            Login
-          </button>
+          {auth.user ? (
+            <button
+              onClick={auth.signOut}
+              className="btn btn-outline-secondary my-2 my-sm-0"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link href="/login">
+              <button className="btn btn-outline-success my-2 my-sm-0">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </nav>
     </div>

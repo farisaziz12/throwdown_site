@@ -9,17 +9,16 @@ import countdown from "countdown";
 
 export default function Home() {
   const { ludicrous, spicy, fun } = content;
-  const [countdownTimer, setCountdownTimer] = useState("");
+  const [countdownTimer, setCountdownTimer] = useState(
+    countdown(new Date(2020, 12, 5)).toString()
+  );
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    setInterval(() => {
       const timer = countdown(new Date(2020, 12, 5)).toString();
       setCountdownTimer(timer);
     }, 1000);
-
-    return clearInterval(interval);
   }, []);
-
   return (
     <div className={styles.container}>
       <Metadata title={"Xmas Throwdown"} />
@@ -33,7 +32,7 @@ export default function Home() {
             </strong>
           </p>
 
-          <div>
+          <div className={styles.countdown}>
             <h2>Countdown till 05.12.2020</h2>
             <h3>{countdownTimer}</h3>
           </div>
