@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import PopPop from "react-poppop";
 
 export default function InfoCard(props) {
-  const { title, description, img } = props.content;
+  const { title, description, more_info, requirements, img } = props.content;
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleShow = (show) => {
+    setShowModal(show);
+  };
+
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="center-item card" style={{ width: "18rem" }}>
       <img src={img} className="card-img-top" alt="..." />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
-        <a href="" className="btn btn-primary">
+        <button onClick={() => toggleShow(true)} className="btn btn-primary">
           Learn more
-        </a>
+        </button>
       </div>
+      <PopPop
+        position="centerCenter"
+        open={showModal}
+        closeBtn={true}
+        closeOnEsc={true}
+        onClose={() => toggleShow(false)}
+        closeOnOverlay={true}
+      >
+        <h1>{title}</h1>
+        <h5>
+          If these requirements align with your abilites then this is the
+          category for you:
+        </h5>
+        <ul>
+          {requirements.map((requirement) => (
+            <strong>
+              <li>{requirement}</li>
+            </strong>
+          ))}
+        </ul>
+      </PopPop>
     </div>
   );
 }
