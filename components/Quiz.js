@@ -138,8 +138,10 @@ export default function Quiz(props) {
                           {(Object.values(results[0])[0] / quiz.length) * 100 >
                           100
                             ? 100
-                            : (Object.values(results[0])[0] / quiz.length) *
-                              100}
+                            : Math.round(
+                                (Object.values(results[0])[0] / quiz.length) *
+                                  100
+                              )}
                           %
                         </div>
                       </div>
@@ -173,8 +175,10 @@ export default function Quiz(props) {
                           {(Object.values(results[1])[0] / quiz.length) * 100 >
                           100
                             ? 100
-                            : (Object.values(results[1])[0] / quiz.length) *
-                              100}
+                            : Math.round(
+                                (Object.values(results[1])[0] / quiz.length) *
+                                  100
+                              )}
                           %
                         </div>
                       </div>
@@ -208,8 +212,10 @@ export default function Quiz(props) {
                           {(Object.values(results[2])[0] / quiz.length) * 100 >
                           100
                             ? 100
-                            : (Object.values(results[2])[0] / quiz.length) *
-                              100}
+                            : Math.round(
+                                (Object.values(results[2])[0] / quiz.length) *
+                                  100
+                              )}
                           %
                         </div>
                       </div>

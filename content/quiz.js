@@ -67,6 +67,61 @@ const quiz = [
     ],
   },
   {
+    question: "How many in your team can do at least 1 Muscle up consistently?",
+    answers: [
+      {
+        txt: "4",
+        value: {
+          category: "ludicrous",
+          points: 3,
+        },
+      },
+      {
+        txt: "3",
+        value: {
+          category: "ludicrous",
+          points: 2,
+        },
+      },
+      {
+        txt: "2",
+        value: {
+          category: "ludicrous",
+          points: 1,
+        },
+      },
+      {
+        txt: "1",
+        value: {
+          category: "spicy",
+          points: 2,
+        },
+      },
+      {
+        txt:
+          "0 but we have a mix of being able to do Chest-to-bar and Pull ups.",
+        value: {
+          category: "spicy",
+          points: 1,
+        },
+      },
+      {
+        txt: "We can mostly do Pull ups.",
+        value: {
+          category: "fun",
+          points: 2,
+        },
+      },
+      {
+        txt: "I can't do Double Unders. Only Single Unders for me.",
+        value: {
+          category: "fun",
+          points: 2,
+        },
+      },
+    ],
+  },
+  {
     question:
       "Assuming at least 2 athletes in your team are capable. How many unbroken HSPU can they do?",
     answers: [
