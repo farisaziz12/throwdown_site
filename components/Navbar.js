@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 
-export default function NavBar() {
+export default function Navbar() {
   const [currentPage, setCurrentPage] = useState("/");
   const auth = useAuth();
 
@@ -120,6 +120,7 @@ export default function NavBar() {
             </li>
           </ul>
           {auth.user ? (
+            // Shows log out if user is logged in
             <button
               onClick={auth.signOut}
               className="btn btn-outline-secondary my-2 my-sm-0"
