@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 
 export default function NavBar() {
   const [currentPage, setCurrentPage] = useState("/");
+  const auth = useAuth();
 
   useEffect(() => {
     setCurrentPage(window.location.pathname);
@@ -11,10 +13,11 @@ export default function NavBar() {
 
   return (
     <div className={styles.navbar}>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand">Xmas Throwdown</a>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a className="navbar-brand">Xmas Throwdown</a>
         <button
-          class="navbar-toggler"
+          name="navbar-collapse-btn"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -22,32 +25,35 @@ export default function NavBar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class={currentPage == "/" ? "nav-item active" : "nav-item"}>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className={currentPage == "/" ? "nav-item active" : "nav-item"}>
               <Link href="/">
-                <a onClick={() => setCurrentPage("/")} class="nav-link">
+                <a onClick={() => setCurrentPage("/")} className="nav-link">
                   Home
                 </a>
               </Link>
             </li>
             <li
-              class={
+              className={
                 currentPage == "/schedule" ? "nav-item active" : "nav-item"
               }
             >
               <Link href="/schedule">
-                <a onClick={() => setCurrentPage("/schedule")} class="nav-link">
+                <a
+                  onClick={() => setCurrentPage("/schedule")}
+                  className="nav-link"
+                >
                   Schedule
                 </a>
               </Link>
             </li>
-            <li class="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
@@ -56,11 +62,11 @@ export default function NavBar() {
               >
                 Workouts
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link href="workouts/event-1">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-1")}
-                    class={
+                    className={
                       currentPage == "/workouts/event-1"
                         ? "dropdown-item active"
                         : "dropdown-item"
@@ -69,11 +75,11 @@ export default function NavBar() {
                     Event 1
                   </a>
                 </Link>
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"></div>
                 <Link href="workouts/event-2">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-2")}
-                    class={
+                    className={
                       currentPage == "/workouts/event-2"
                         ? "dropdown-item active"
                         : "dropdown-item"
@@ -82,11 +88,11 @@ export default function NavBar() {
                     Event 2
                   </a>
                 </Link>
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"></div>
                 <Link href="workouts/event-3">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-3")}
-                    class={
+                    className={
                       currentPage == "/workouts/event-3"
                         ? "dropdown-item active"
                         : "dropdown-item"
@@ -98,21 +104,35 @@ export default function NavBar() {
               </div>
             </li>
             <li
-              class={currentPage == "/about" ? "nav-item active" : "nav-item"}
+              className={
+                currentPage == "/about" ? "nav-item active" : "nav-item"
+              }
             >
               <Link href="/about">
                 <a
                   onClick={() => setCurrentPage("/about")}
-                  class="nav-link"
-                  tabindex="-1"
+                  className="nav-link"
+                  tabIndex="-1"
                 >
                   About
                 </a>
               </Link>
             </li>
           </ul>
-
-          <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
+          {auth.user ? (
+            <button
+              onClick={auth.signOut}
+              className="btn btn-outline-secondary my-2 my-sm-0"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link href="/login">
+              <button className="btn btn-outline-success my-2 my-sm-0">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </nav>
     </div>

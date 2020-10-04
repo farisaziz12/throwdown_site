@@ -29,10 +29,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/workouts/event-1": [
+    "/login": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/workouts/event-1.js"
+      "static/chunks/pages/login.js"
+    ],
+    "/schedule": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/schedule.js"
     ]
   },
   "ampFirstPages": []
