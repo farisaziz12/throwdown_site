@@ -43,3 +43,7 @@ a {
   min-width: 280px;
   min-height: 400px;
 }
+
+.width-limit {
+  max-width: 900px;
+}
