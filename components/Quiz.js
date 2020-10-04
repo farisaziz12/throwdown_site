@@ -10,7 +10,7 @@ export default function Quiz(props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [done, setDone] = useState(false);
   const [chosenCategory, setChosenCategory] = useState(undefined);
-  const [results, setResults] = useState(undefined);
+  const [results, setResults] = useState({});
 
   const handleChange = (e, { value }) => {
     setValue(value);
@@ -110,84 +110,117 @@ export default function Quiz(props) {
               </h2>
               <div className="topspace">
                 <ul>
-                  <h3>
-                    <strong>
-                      {Object.keys(results[0])[0].replace(/^\w/, (c) =>
-                        c.toUpperCase()
-                      )}
-                      :
-                    </strong>
-                    <div className="progress topspace">
-                      <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{
-                          width: `${
+                  {results[0] && (
+                    <>
+                      <h3>
+                        <strong>
+                          {Object.keys(results[0])[0].replace(/^\w/, (c) =>
+                            c.toUpperCase()
+                          )}
+                          :
+                        </strong>
+                      </h3>
+                      <div className="progress topspace">
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          style={{
+                            width: `${
+                              (Object.values(results[0])[0] / quiz.length) * 100
+                            }%`,
+                          }}
+                          aria-valuenow={
                             (Object.values(results[0])[0] / quiz.length) * 100
-                          }%`,
-                        }}
-                        aria-valuenow={
-                          (Object.values(results[0])[0] / quiz.length) * 100
-                        }
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        {(Object.values(results[0])[0] / quiz.length) * 100}%
+                          }
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        >
+                          {(Object.values(results[0])[0] / quiz.length) * 100 >
+                          100
+                            ? 100
+                            : Math.round(
+                                (Object.values(results[0])[0] / quiz.length) *
+                                  100
+                              )}
+                          %
+                        </div>
                       </div>
-                    </div>
-                  </h3>
-                  <h3>
-                    <strong>
-                      {Object.keys(results[1])[0].replace(/^\w/, (c) =>
-                        c.toUpperCase()
-                      )}
-                      :
-                    </strong>
-                  </h3>
-                  <div className="progress topspace">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{
-                        width: `${
-                          (Object.values(results[1])[0] / quiz.length) * 100
-                        }%`,
-                      }}
-                      aria-valuenow={
-                        (Object.values(results[1])[0] / quiz.length) * 100
-                      }
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      {(Object.values(results[1])[0] / quiz.length) * 100}%
-                    </div>
-                  </div>
-                  <h3>
-                    <strong>
-                      {Object.keys(results[2])[0].replace(/^\w/, (c) =>
-                        c.toUpperCase()
-                      )}
-                      :
-                    </strong>
-                  </h3>
-                  <div className="progress topspace">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{
-                        width: `${
-                          (Object.values(results[2])[0] / quiz.length) * 100
-                        }%`,
-                      }}
-                      aria-valuenow={
-                        (Object.values(results[2])[0] / quiz.length) * 100
-                      }
-                      aria-valuemin=""
-                      aria-valuemax="100"
-                    >
-                      {(Object.values(results[2])[0] / quiz.length) * 100}%
-                    </div>
-                  </div>
+                    </>
+                  )}
+                  {results[1] && (
+                    <>
+                      <h3>
+                        <strong>
+                          {Object.keys(results[1])[0].replace(/^\w/, (c) =>
+                            c.toUpperCase()
+                          )}
+                          :
+                        </strong>
+                      </h3>
+                      <div className="progress topspace">
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          style={{
+                            width: `${
+                              (Object.values(results[1])[0] / quiz.length) * 100
+                            }%`,
+                          }}
+                          aria-valuenow={
+                            (Object.values(results[1])[0] / quiz.length) * 100
+                          }
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        >
+                          {(Object.values(results[1])[0] / quiz.length) * 100 >
+                          100
+                            ? 100
+                            : Math.round(
+                                (Object.values(results[1])[0] / quiz.length) *
+                                  100
+                              )}
+                          %
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {results[2] && (
+                    <>
+                      <h3>
+                        <strong>
+                          {Object.keys(results[2])[0].replace(/^\w/, (c) =>
+                            c.toUpperCase()
+                          )}
+                          :
+                        </strong>
+                      </h3>
+                      <div className="progress topspace">
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          style={{
+                            width: `${
+                              (Object.values(results[2])[0] / quiz.length) * 100
+                            }%`,
+                          }}
+                          aria-valuenow={
+                            (Object.values(results[2])[0] / quiz.length) * 100
+                          }
+                          aria-valuemin=""
+                          aria-valuemax="100"
+                        >
+                          {(Object.values(results[2])[0] / quiz.length) * 100 >
+                          100
+                            ? 100
+                            : Math.round(
+                                (Object.values(results[2])[0] / quiz.length) *
+                                  100
+                              )}
+                          %
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
