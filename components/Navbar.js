@@ -63,7 +63,7 @@ export default function Navbar() {
                 Workouts
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link href="workouts/event-1">
+                <Link href="/workouts/event-1">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-1")}
                     className={
@@ -76,7 +76,7 @@ export default function Navbar() {
                   </a>
                 </Link>
                 <div className="dropdown-divider"></div>
-                <Link href="workouts/event-2">
+                <Link href="/workouts/event-2">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-2")}
                     className={
@@ -89,11 +89,11 @@ export default function Navbar() {
                   </a>
                 </Link>
                 <div className="dropdown-divider"></div>
-                <Link href="workouts/event-3">
+                <Link href="/workouts/event-3">
                   <a
                     onClick={() => setCurrentPage("/workouts/event-3")}
                     className={
-                      currentPage == "/workouts/event-3"
+                      currentPage == "/event-3"
                         ? "dropdown-item active"
                         : "dropdown-item"
                     }
@@ -120,7 +120,6 @@ export default function Navbar() {
             </li>
           </ul>
           {auth.user ? (
-            // Shows log out if user is logged in
             <button
               onClick={auth.signOut}
               className="btn btn-outline-secondary my-2 my-sm-0"

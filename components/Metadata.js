@@ -6,6 +6,9 @@ export default function Metadata(props) {
   return (
     <div>
       <Head>
+        <meta name="theme-color" content="#34ac54 " />
+        <meta name="description" content="Christmas Throwdown Website" />
+        <meta name="author" content="Faris Aziz"></meta>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
         <link
