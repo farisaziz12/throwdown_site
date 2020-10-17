@@ -112,13 +112,6 @@ const quiz = [
           points: 2,
         },
       },
-      {
-        txt: "I can't do Double Unders. Only Single Unders for me.",
-        value: {
-          category: "fun",
-          points: 2,
-        },
-      },
     ],
   },
   {

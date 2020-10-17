@@ -13,7 +13,7 @@ export default function FAQ(props) {
 
   return (
     <div>
-      <div className="accordion" id="accordionExample">
+      <div className="accordion width-limit center-item" id="accordionExample">
         {FAQs.map((FAQ) => (
           <div key={FAQ.question} className="card">
             <div className="card-header" id="headingOne">
@@ -23,7 +23,7 @@ export default function FAQ(props) {
                   type="button"
                   data-toggle="collapse"
                   data-target="#collapseOne"
-                  aria-expanded="false"
+                  aria-expanded="true"
                   aria-controls="collapseOne"
                 >
                   {FAQ.question}

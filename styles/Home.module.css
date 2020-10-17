@@ -135,6 +135,17 @@
   height: 2em;
 }
 
+.change-img-btn {
+  margin-top: 2%;
+  padding: 4px 4px 4px;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.change-img-btn:hover {
+  background-color: gray;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
