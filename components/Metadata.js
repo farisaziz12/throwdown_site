@@ -8,8 +8,10 @@ export default function Metadata(props) {
       <Head>
         <meta name="theme-color" content="#34ac54 " />
         <meta name="description" content="Christmas Throwdown Website" />
+        <link rel="apple-touch-icon" href="images/antidote_logo.png" />
         <meta name="author" content="Faris Aziz"></meta>
         <title>{title}</title>
+        <link rel="manifest" href="manifest.json" />
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="stylesheet"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
@@ -6,6 +7,7 @@ import styles from "../styles/Navbar.module.css";
 export default function Navbar() {
   const [currentPage, setCurrentPage] = useState("/");
   const auth = useAuth();
+  const router = useRouter()
 
   useEffect(() => {
     setCurrentPage(window.location.pathname);
@@ -121,7 +123,10 @@ export default function Navbar() {
           </ul>
           {auth.user ? (
             <button
-              onClick={auth.signOut}
+              onClick={() => {
+                auth.signOut()
+                router.push("/")
+              }}
               className="btn btn-outline-secondary my-2 my-sm-0"
             >
               Logout

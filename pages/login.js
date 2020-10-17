@@ -32,7 +32,7 @@ export default function login() {
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    app.auth().onAuthStateChanged(function (user) {
+    app.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
       }
@@ -84,7 +84,7 @@ export default function login() {
   };
 
   if (user) {
-    router.push("/");
+    router.back();
   }
   const formComplete =
     firstName &&
