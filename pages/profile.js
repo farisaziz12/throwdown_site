@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
+import Team from "../components/team";
 
 export default function profile() {
   const auth = useAuth();
@@ -68,6 +69,8 @@ export default function profile() {
               <label className={styles["change-img-btn"]} htmlFor="profile-img">
                 Change Image
               </label>
+              <h1 className={styles["underline-title"]}>My Team</h1>
+              <Team user={userInfo}/>
             </>
             :
             <div className="spinner-border text-success" role="status">
