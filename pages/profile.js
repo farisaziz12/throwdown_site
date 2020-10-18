@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
-import Team from "../components/team";
+import Team from "../components/Team";
 
 export default function profile() {
   const auth = useAuth();
