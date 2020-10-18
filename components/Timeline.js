@@ -9,7 +9,7 @@ export default function Timeline() {
         <div className={styles.timeline}>
           <div className={styles.timelinegroup}>
             <span className={styles.timelineyear}>
-              Saturday 5th December 2020
+              Saturday 5th Dec 2020
             </span>
             {timelineContent.map((event) => (
               <div className={styles.timelinebox}>
