@@ -16,7 +16,9 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand">Xmas Throwdown</a>
+        <Link href="/">
+          <a className="navbar-brand">Xmas Throwdown</a>
+        </Link>
         <button
           name="navbar-collapse-btn"
           className="navbar-toggler"
