@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import 'bootstrap/dist/css/bootstrap.css'
 import { AuthProvider } from "../hooks/useAuth";
 
 function MyApp({ Component, pageProps }) {
