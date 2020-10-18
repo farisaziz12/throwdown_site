@@ -34,6 +34,20 @@ const useAuthProvider = () => {
       })
       .catch((error) => {
         alert(error.message);
+        // Error sends push notifcation
+        fetch("https://api.pushover.net/1/messages.json", {
+                    method: "POST", 
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: process.env.NEXT_PUBLIC_PUSHOVER_PROJECT_KEY,
+                        user: process.env.NEXT_PUBLIC_PUSHOVER_USER_KEY,
+                        title: "Antidote Xmas Throwdown Log In Error",
+                        message: `${email} had a login error ${error.message}`
+                    })
+          })
       });
   };
 
@@ -65,8 +79,37 @@ const useAuthProvider = () => {
         })
           .then((resp) => resp.json())
           .then((resp) => console.log(resp));
-      })
+      }).then(
+        // Sign up sends push notification
+        fetch("https://api.pushover.net/1/messages.json", {
+                    method: "POST", 
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: process.env.NEXT_PUBLIC_PUSHOVER_PROJECT_KEY,
+                        user: process.env.NEXT_PUBLIC_PUSHOVER_USER_KEY,
+                        title: "Antidote Xmas Throwdown Sign Up",
+                        message: `${firstName + " " + lastName} Signed Up!`
+                    })
+          })
+      )
       .catch((error) => {
+        // Error sends push notification
+        fetch("https://api.pushover.net/1/messages.json", {
+                    method: "POST", 
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: process.env.NEXT_PUBLIC_PUSHOVER_PROJECT_KEY,
+                        user: process.env.NEXT_PUBLIC_PUSHOVER_USER_KEY,
+                        title: "Antidote Xmas Throwdown Sign Up Error",
+                        message: `${email} had a sign up error ${error.message}`
+                    })
+          })
         return { error };
       });
   };
