@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from "react";
-import Avatar from '@material-ui/core/Avatar';
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
+import Avatar from '@material-ui/core/Avatar';
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 
 export default function Navbar() {
   const [currentPage, setCurrentPage] = useState("/");
+  const [currentUser, setCurrentUser] = useState(undefined)
   const auth = useAuth();
   const router = useRouter()
 
   useEffect(() => {
     setCurrentPage(window.location.pathname);
   }, []);
+
+  useEffect(() => {
+    if (auth.user){
+      fetch(`https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${auth.user.email}`)
+      .then(resp => resp.json()).then(data => {
+        setCurrentUser(data)
+      })
+    }
+  }, [auth])
 
   return (
     <div className={styles.navbar}>
@@ -126,7 +136,11 @@ export default function Navbar() {
           </ul>
           {auth.user ? (
             <>
-              <Avatar style={{marginRight: "1%"}} alt="Athlete" src="/static/images/avatar/1.jpg" />
+            {currentUser&& 
+              <Link href="/profile">
+                <Avatar style={{marginRight: "1%", cursor: "pointer"}} alt="Athlete" src={currentUser.image? currentUser.image : "/images/profile_pic.jpeg" } />
+              </Link>
+            }
               <button
                 onClick={() => {
                   auth.signOut()

@@ -6,14 +6,12 @@ import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
 
-const altImage = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedicine.fiu.edu%2Fabout%2Ffaculty-and-staff%2Fpeople%2F_assets%2Fprofiles%2Fheadshot-placeholder.png&f=1&nofb=1"
-
 export default function profile() {
   const auth = useAuth();
   const [loading, setLoading] = useState(true)
   const [userInfo, setUserInfo] = useState(undefined)
   const [user, setUser] = useState(undefined)
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(userInfo&& userInfo.image? userInfo.image : altImage)
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(userInfo&& userInfo.image? userInfo.image : null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -64,7 +62,7 @@ export default function profile() {
             <>
               <h1 className={styles.fontandcenter}>Hey {userInfo.first_name}!</h1>
               <div className="center-item">
-                <img className={styles["profile-image"]} src={imagePreviewUrl} alt="..."/>
+                <img className={styles["profile-image"]} src={imagePreviewUrl? imagePreviewUrl : "/images/profile_pic.jpeg"} alt="..."/>
               </div>
               <input className="center-item" id="profile-img" type="file" style={{display: "none"}} name="avatar" onChange={fileChangedHandler} />
               <label className={styles["change-img-btn"]} htmlFor="profile-img">
