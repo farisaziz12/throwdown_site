@@ -12,11 +12,11 @@ Please delete options that are not relevant.
 # Testing Instructions
 Please describe the tests required to verify your changes. Provide instructions so PR Tester can check functionality. Please also list any relevant details for your tests
 
-#Screenshots
+## Screenshots
 
 `Desktop:`
 
-`Mobile (iPhone X):`
+`Mobile (Device Name):`
 
 # Checklist (delete options that are not relevent):
 - [ ] My code follows the style guidelines of this project
