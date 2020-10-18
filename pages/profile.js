@@ -73,7 +73,7 @@ export default function profile() {
               <Team user={userInfo}/>
             </>
             :
-            <div className="spinner-border text-success" role="status">
+            <div className="spinner-border text-primary" role="status">
               <span className="sr-only">Loading...</span>
             </div>
           }
@@ -81,7 +81,7 @@ export default function profile() {
         :
         <>
         {loading?
-          <div className="spinner-border text-success" role="status">
+          <div className="spinner-border text-primary" role="status">
             <span className="sr-only">Loading...</span>
           </div>
           :
