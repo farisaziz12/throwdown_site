@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Avatar from '@material-ui/core/Avatar';
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
@@ -124,15 +125,18 @@ export default function Navbar() {
             </li>
           </ul>
           {auth.user ? (
-            <button
-              onClick={() => {
-                auth.signOut()
-                router.push("/")
-              }}
-              className="btn btn-outline-secondary my-2 my-sm-0"
-            >
-              Logout
-            </button>
+            <>
+              <Avatar style={{marginRight: "1%"}} alt="Athlete" src="/static/images/avatar/1.jpg" />
+              <button
+                onClick={() => {
+                  auth.signOut()
+                  router.push("/")
+                }}
+                className="btn btn-outline-secondary my-2 my-sm-0"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <Link href="/login">
               <button className="btn btn-outline-success my-2 my-sm-0">
