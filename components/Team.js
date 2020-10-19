@@ -42,7 +42,11 @@ export default function Team(props) {
                 </>
                 :
                 <>
-                    <h1>{team}</h1>
+                    <div style={{display: "inline-flex", justifyContent: "center"}}>
+                        {team.map(athlete => (
+                            <Avatar key={athlete.id} style={{marginLeft: "3%"}} alt="Athlete" src={athlete.image? athlete.image : "/images/profile_pic.jpeg" } />
+                        ))}
+                    </div>
                 </>
             }
         </div>
