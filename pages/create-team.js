@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
+import { capitalize } from '../functions'
 import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
+
 
 export default function createTeam() {
     const [teamName, setTeamName] = useState("")
     const [teamCategory, setTeamCategory] = useState("")
     const router = useRouter()
 
-    const submitTeamName = (e) => {
+    const submitTeam = (e) => {
       e.preventDefault()
       fetch(`https://wod-with-faris-backend.herokuapp.com/team/create_team`, {
         method: "POST",
@@ -32,7 +34,7 @@ export default function createTeam() {
 
     const handleTeamNameChange = (e) => {
         // Capitalizes beginning of each word
-        const name = e.target.value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
+        const name = capitalize(e.target.value)
         setTeamName(name)
     }
 
@@ -46,7 +48,7 @@ export default function createTeam() {
       <NavBar />
       <main className={styles.main}>
         <h1 className={styles.fontandcenter}>Create Team</h1>
-        <form onSubmit={submitTeamName}>
+        <form onSubmit={submitTeam}>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Team Name</label>
                 <input type="text" value={teamName} onChange={handleTeamNameChange} className={"form-control"} id="exampleInputEmail1" aria-describedby="emailHelp"/>
