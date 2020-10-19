@@ -3,10 +3,14 @@ import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
+import TeamCard from "../components/TeamCard";
+import { useAuth } from "../hooks/useAuth"
 
 export default function joinTeam() {
+    const auth = useAuth()
     const [teams, setTeams] = useState([])
     const [loading, setLoading] = useState(true)
+    const [currentUser, setCurrentUser] = useState(undefined)
 
     useEffect(() => {
        fetch(`https://wod-with-faris-backend.herokuapp.com/team/all_teams`)
@@ -21,6 +25,15 @@ export default function joinTeam() {
        })
    }, [])
 
+   useEffect(() => {
+    if (auth.user){
+      fetch(`https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${auth.user.email}`)
+      .then(resp => resp.json()).then(data => {
+        setCurrentUser(data)
+      })
+    }
+  }, [auth])
+
   return (
     <div className={styles.container}>
       <Metadata title={"Xmas Throwdown Team"} />
@@ -33,9 +46,11 @@ export default function joinTeam() {
             </div>
         :
         teams[0]?
-        teams.map(team => (
-            <button key={team.id} type="button" className="btn btn-primary">{team.name}</button>
-        ))
+            <div className="row">
+                {teams.map(team => (
+                    <TeamCard user={currentUser} key={team.id} {...team}/>
+                ))}
+            </div>
         :
         <h1>No Teams</h1>
         }
