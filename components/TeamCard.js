@@ -6,18 +6,29 @@ import Avatar from '@material-ui/core/Avatar';
 export default function TeamCard(props) {
     const { id, name, category, user } = props
     const [team, setTeam] = useState([])
+    const [myTeam, setMyTeam] = useState(false)
     const [showModal, setShowModal] = useState(false);
 
-    const toggleShow = (show) => {
-        setShowModal(show);
-    };
 
     useEffect(() => {
         fetch(`https://wod-with-faris-backend.herokuapp.com/team/get_team_athletes?id=${id}`)
         .then(resp => resp.json())
-        .then(data => setTeam(data.team))
+        .then(data => setTeam(data.team? data.team: []))
         .catch(err => console.log(err))
     }, [])
+
+
+    useEffect(() => {
+        if (team[0] && user) {
+            const isMyTeam = team.filter(athlete => athlete.id === user.id)
+            setMyTeam(!!isMyTeam) 
+        }
+    }, [team, user])
+
+    console.log(team)
+    const toggleShow = (show) => {
+        setShowModal(show);
+    };
 
     const handleJoinTeam = () => {
         fetch(`https://wod-with-faris-backend.herokuapp.com/team/join_team`, {
@@ -31,6 +42,24 @@ export default function TeamCard(props) {
           })
           }).then(resp => resp.json())
           .then(() => setTeam([...team, user]))
+          .catch(err => console.log(err))
+    }
+
+    const handleExitTeam = () => {
+        fetch(`https://wod-with-faris-backend.herokuapp.com/team/exit_team`, {
+            method: "POST",
+            headers: { 
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({ 
+              email: user.email,
+              team_id: id
+          })
+          }).then(resp => resp.json())
+          .then(() => {
+              const updatedTeam = team.filter(athlete => athlete.id !== user.id)
+              updatedTeam&& setTeam(updatedTeam)
+        })
           .catch(err => console.log(err))
     }
 
@@ -79,7 +108,11 @@ export default function TeamCard(props) {
                     :
                         <h5 className="text-align">No Athletes</h5>
                     }
-                    <button type="button" style={{display: "block", marginRight: "auto", marginLeft: "auto"}} onClick={handleJoinTeam} disabled={team.length === 4} className="btn btn-success topspace">{team.length === 4? "Team Full" : "Join Team"}</button>
+                    {myTeam?
+                        <button type="button" style={{display: "block", marginRight: "auto", marginLeft: "auto"}} onClick={handleExitTeam}className="btn btn-success topspace">Exit Team</button>
+                    :
+                        <button type="button" style={{display: "block", marginRight: "auto", marginLeft: "auto"}} onClick={handleJoinTeam} disabled={team.length === 4} className="btn btn-success topspace">{team.length === 4? "Team Full" : "Join Team"}</button>
+                    }
                 </div>
                 </div>
             </PopPop>
