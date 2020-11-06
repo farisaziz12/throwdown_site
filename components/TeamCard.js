@@ -21,11 +21,10 @@ export default function TeamCard(props) {
     useEffect(() => {
         if (team[0] && user) {
             const isMyTeam = team.filter(athlete => athlete.id === user.id)
-            setMyTeam(!!isMyTeam) 
+            setMyTeam(!!isMyTeam)
         }
     }, [team, user])
 
-    console.log(team)
     const toggleShow = (show) => {
         setShowModal(show);
     };
@@ -33,34 +32,34 @@ export default function TeamCard(props) {
     const handleJoinTeam = () => {
         fetch(`https://wod-with-faris-backend.herokuapp.com/team/join_team`, {
             method: "POST",
-            headers: { 
-              "Content-type": "application/json"
+            headers: {
+            "Content-type": "application/json"
             },
-            body: JSON.stringify({ 
-              email: user.email,
-              team_id: id
-          })
-          }).then(resp => resp.json())
-          .then(() => setTeam([...team, user]))
-          .catch(err => console.log(err))
+            body: JSON.stringify({
+            email: user.email,
+            team_id: id
+        })
+        }).then(resp => resp.json())
+        .then(() => setTeam([...team, user]))
+        .catch(err => console.log(err))
     }
 
     const handleExitTeam = () => {
         fetch(`https://wod-with-faris-backend.herokuapp.com/team/exit_team`, {
             method: "POST",
-            headers: { 
-              "Content-type": "application/json"
+            headers: {
+            "Content-type": "application/json"
             },
-            body: JSON.stringify({ 
-              email: user.email,
-              team_id: id
-          })
-          }).then(resp => resp.json())
-          .then(() => {
-              const updatedTeam = team.filter(athlete => athlete.id !== user.id)
-              updatedTeam&& setTeam(updatedTeam)
+            body: JSON.stringify({
+                email: user.email,
+                team_id: id
+            })
+        }).then(resp => resp.json())
+        .then(() => {
+            const updatedTeam = team.filter(athlete => athlete.id !== user.id)
+            updatedTeam&& setTeam(updatedTeam)
         })
-          .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
 
     return (
