@@ -36,6 +36,7 @@ export default function Quiz(props) {
       results,
       (o) => o.spicy || o.ludicrous || o.fun
     );
+
     if (results.spicy === 2 && results.fun === 2 && results.ludicrous === 2) {
       setResults(results);
     } else {
