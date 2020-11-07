@@ -164,6 +164,8 @@ const pushNotification = async (title, message) => {
     });
     if (response.status === 200) {
         return true;
+    } else {
+        return false;
     }
 };
 
