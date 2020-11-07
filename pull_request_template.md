@@ -3,6 +3,8 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 Fixes # (issue)
 
+## New Dependinces (delete if not relevent)
+
 ## Type of change
 Please delete options that are not relevant.
 - [ ] Bug fix (non-breaking change which fixes an issue)
