@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
+import { getUser } from "../api"
 import Avatar from '@material-ui/core/Avatar';
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
@@ -17,10 +18,14 @@ export default function Navbar() {
 
   useEffect(() => {
     if (auth.user){
-      fetch(`https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${auth.user.email}`)
-      .then(resp => resp.json()).then(data => {
-        setCurrentUser(data)
-      })
+      try {
+        (async () => {
+          const user = await getUser(auth.user.email)
+          setCurrentUser(user)
+        })()
+      } catch (error) {
+        console.error(error)
+      }
     }
   }, [auth])
 
