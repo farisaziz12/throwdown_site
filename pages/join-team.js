@@ -46,7 +46,7 @@ export default function joinTeam() {
             </div>
         :
         teams[0]?
-            <div className="row">
+            <div className="card-deck">
                 {teams.map(team => (
                     <TeamCard user={currentUser} key={team.id} {...team}/>
                 ))}
