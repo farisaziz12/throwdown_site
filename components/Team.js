@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { getMyTeam } from "../api"
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Avatar from '@material-ui/core/Avatar';
@@ -11,16 +12,16 @@ export default function Team(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-         fetch(`https://wod-with-faris-backend.herokuapp.com/team/my_team?email=${user.email}`)
-       .then(resp => resp.json())
-       .then(team => {
-           setLoading(false)
-           setTeam(team)
-        })
-       .catch(err => {
+        try {
+            (async () => {
+                const team = await getMyTeam(user.email)
+                setLoading(false)
+                setTeam(team)
+            })()
+        } catch (error) {
             setLoading(false)
-           console.log(err)
-        })
+            console.error(error)
+        }
     }, [])
 
     return (

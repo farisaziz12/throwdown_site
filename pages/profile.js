@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth"
+import { getUser } from "../api"
 import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,12 +21,12 @@ export default function profile() {
     }, 1500)
 
     if (auth.user){
-      fetch(`https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${auth.user.email}`)
-      .then(resp => resp.json()).then(data => {
-        setUserInfo(data)
-        setImagePreviewUrl(data.image)
-      })
-      setUser(auth.user)
+      (async () => {
+        const user = await getUser(auth.user.email)
+        setUserInfo(user)
+        setImagePreviewUrl(user.image)
+        setUser(auth.user)
+      })()
     }
   }, [auth])
 

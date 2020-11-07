@@ -6,6 +6,7 @@ import Metadata from "../components/Metadata";
 import styles from "../styles/Home.module.css";
 import { app } from "../config/firebase";
 import { useAuth } from "../hooks/useAuth";
+import { getUser } from "../api"
 import { Subject, timer } from "rxjs";
 import { debounce, filter } from "rxjs/operators";
 
@@ -58,9 +59,7 @@ export default function login() {
           debounce(() => timer(750))
         )
         .subscribe(async (email) => {
-          const foundAccount = await fetch(
-            `https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${email}`
-          ).then((resp) => resp.json());
+          const foundAccount = await getUser(email)
           if (foundAccount) {
             setExitstingAccount(true);
           } else {
@@ -249,7 +248,7 @@ export default function login() {
                 Please provide an email.
               </div>
               {existingAccount && (
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                   An account with this email already exits. Try logging in.
                 </div>
               )}
@@ -317,7 +316,7 @@ export default function login() {
                 Please confirm password.
               </div>
               {noPasswordMatch && (
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                   Passwords do not match.
                 </div>
               )}
