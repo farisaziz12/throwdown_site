@@ -24,6 +24,7 @@ jobs:
       env:
           NEXT_PUBLIC_PUSHOVER_PROJECT_KEY: ${{ secrets.NEXT_PUBLIC_PUSHOVER_PROJECT_KEY }}
           NEXT_PUBLIC_PUSHOVER_USER_KEY: ${{ secrets.NEXT_PUBLIC_PUSHOVER_USER_KEY }}
+          NEXT_PUBLIC_FIREBASE_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_KEY }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
