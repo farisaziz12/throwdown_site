@@ -3,7 +3,7 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 Fixes # (issue)
 
-## New Dependinces (delete if not relevent)
+## New Dependinces (delete if not relevant)
 
 ## Type of change
 Please delete options that are not relevant.
@@ -20,7 +20,7 @@ Please describe the tests required to verify your changes. Provide instructions 
 
 `Mobile (Device Name):`
 
-# Checklist (delete options that are not relevent):
+# Checklist (delete options that are not relevant):
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
