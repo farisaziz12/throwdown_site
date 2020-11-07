@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PopPop from "react-poppop";
 import { capitalize } from "../functions"
+import { getTeamAthletes, joinTeam, exitTeam } from "../api"
 import Avatar from '@material-ui/core/Avatar';
 
 export default function TeamCard(props) {
@@ -11,10 +12,14 @@ export default function TeamCard(props) {
 
 
     useEffect(() => {
-        fetch(`https://wod-with-faris-backend.herokuapp.com/team/get_team_athletes?id=${id}`)
-        .then(resp => resp.json())
-        .then(data => setTeam(data.team? data.team: []))
-        .catch(err => console.log(err))
+        try {
+            (async () => {
+                const teamAthletes = getTeamAthletes(id)
+                setTeam(teamAthletes? teamAthletes : [])
+            })()
+        } catch (error) {
+            console.error(error)
+        }
     }, [])
 
 
@@ -22,6 +27,8 @@ export default function TeamCard(props) {
         if (team[0] && user) {
             const isMyTeam = team.filter(athlete => athlete.id === user.id)
             setMyTeam(!!isMyTeam)
+        } else {
+            setMyTeam(false)
         }
     }, [team, user])
 
@@ -29,37 +36,24 @@ export default function TeamCard(props) {
         setShowModal(show);
     };
 
-    const handleJoinTeam = () => {
-        fetch(`https://wod-with-faris-backend.herokuapp.com/team/join_team`, {
-            method: "POST",
-            headers: {
-            "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-            email: user.email,
-            team_id: id
-        })
-        }).then(resp => resp.json())
-        .then(() => setTeam([...team, user]))
-        .catch(err => console.log(err))
+    const handleJoinTeam = async () => {
+        try {
+            const joinedUser = await joinTeam(user.email, id)
+            setTeam([...team, joinedUser])
+        } catch (error) {
+            console.error(error)
+        }
     }
 
-    const handleExitTeam = () => {
-        fetch(`https://wod-with-faris-backend.herokuapp.com/team/exit_team`, {
-            method: "POST",
-            headers: {
-            "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                email: user.email,
-                team_id: id
-            })
-        }).then(resp => resp.json())
-        .then(() => {
-            const updatedTeam = team.filter(athlete => athlete.id !== user.id)
-            updatedTeam&& setTeam(updatedTeam)
-        })
-        .catch(err => console.log(err))
+    const handleExitTeam = async () => {
+        try {
+            const updatedTeam = await exitTeam(user, team, id)
+            if (updatedTeam){
+                setTeam(updatedTeam)
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
