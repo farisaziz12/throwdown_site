@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Metadata from "../components/Metadata";
 import TeamCard from "../components/TeamCard";
 import { useAuth } from "../hooks/useAuth"
+import { getAllTeams, getUser } from "../api"
 
 export default function joinTeam() {
     const auth = useAuth()
@@ -13,49 +14,49 @@ export default function joinTeam() {
     const [currentUser, setCurrentUser] = useState(undefined)
 
     useEffect(() => {
-       fetch(`https://wod-with-faris-backend.herokuapp.com/team/all_teams`)
-      .then(resp => resp.json())
-      .then(teams => {
-          setLoading(false)
-          setTeams(teams)
-       })
-      .catch(err => {
-           setLoading(false)
-          console.log(err)
-       })
-   }, [])
-
-   useEffect(() => {
-    if (auth.user){
-      fetch(`https://wod-with-faris-backend.herokuapp.com/user/getuser?email=${auth.user.email}`)
-      .then(resp => resp.json()).then(data => {
-        setCurrentUser(data)
-      })
-    }
-  }, [auth])
-
-  return (
-    <div className={styles.container}>
-      <Metadata title={"Xmas Throwdown Team"} />
-      <NavBar />
-      <main className={styles.main}>
-        <h1 className={styles.fontandcenter}>Join Team</h1>
-        {loading?
-            <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
-        :
-        teams[0]?
-            <div className="card-deck">
-                {teams.map(team => (
-                    <TeamCard user={currentUser} key={team.id} {...team}/>
-                ))}
-            </div>
-        :
-        <h1>No Teams</h1>
+        try {
+            (async () => {
+                const teams = await getAllTeams()
+                setLoading(false)
+                setTeams(teams)
+            })()
+        } catch (error) {
+            setLoading(false)
+            console.error(error)
         }
-      </main>
-      <Footer />
-    </div>
-  );
+    }, [])
+
+    useEffect(() => {
+        if (auth.user){
+            (async () => {
+                const user = await getUser(auth.user.email)
+                setCurrentUser(user)
+            })()
+        }
+    }, [auth])
+
+    return (
+        <div className={styles.container}>
+            <Metadata title={"Xmas Throwdown Team"} />
+            <NavBar />
+            <main className={styles.main}>
+            <h1 className={styles.fontandcenter}>Join Team</h1>
+            {loading?
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            :
+            teams[0]?
+                <div className="row">
+                    {teams.map(team => (
+                        <TeamCard user={currentUser} key={team.id} {...team}/>
+                    ))}
+                </div>
+            :
+            <h1>No Teams</h1>
+            }
+            </main>
+            <Footer />
+        </div>
+    );
 }
