@@ -40,10 +40,18 @@ a {
 }
 
 .more-info-modal {
-  min-width: 280px;
+  min-width: 250px;
   min-height: 400px;
 }
 
 .width-limit {
   max-width: 900px;
+}
+
+.default-font {
+  font-family: "Fredericka the Great", cursive;
+}
+
+.text-align {
+  text-align: center;
 }
