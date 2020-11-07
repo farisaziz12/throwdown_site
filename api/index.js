@@ -99,6 +99,22 @@ const getAllTeams = () => {
             .then(resp => resp.json())
 }
 
+const pushNotification = (title, message) => {
+    fetch("https://api.pushover.net/1/messages.json", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: process.env.NEXT_PUBLIC_PUSHOVER_PROJECT_KEY,
+                        user: process.env.NEXT_PUBLIC_PUSHOVER_USER_KEY,
+                        title: title,
+                        message: message
+                    })
+    })
+}
+
 module.exports = {
     getUser,
     getMyTeam,
@@ -107,5 +123,6 @@ module.exports = {
     exitTeam,
     signUpUser,
     createNewTeam,
-    getAllTeams
+    getAllTeams,
+    pushNotification
 }
