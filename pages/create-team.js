@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
-import { capitalize } from '../functions'
+import { capitalize } from '../functions';
+import { createNewTeam } from "../api"
 import styles from "../styles/Home.module.css";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -13,23 +14,13 @@ export default function createTeam() {
     const router = useRouter()
 
     const submitTeam = (e) => {
-      e.preventDefault()
-      fetch(`https://wod-with-faris-backend.herokuapp.com/team/create_team`, {
-        method: "POST",
-        headers: { 
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({ 
-          name: teamName,
-          category: teamCategory
-      })
-      })
-      .then(resp => resp.json())
-      .then(resp => console.log(resp))
-      .then(() => router.push("/join-team"))
-      .catch(err => {
-          console.log(err)
-       })
+        e.preventDefault()
+
+        const teamCreated = createNewTeam(teamName, teamCategory)
+
+        if (teamCreated){
+        router.push("/join-team")
+        }
     }
 
     const handleTeamNameChange = (e) => {
@@ -42,11 +33,11 @@ export default function createTeam() {
         setTeamCategory(e.target.value)
     }
 
-  return (
+    return (
     <div className={styles.container}>
-      <Metadata title={"Xmas Throwdown Team"} />
-      <NavBar />
-      <main className={styles.main}>
+        <Metadata title={"Xmas Throwdown Team"} />
+        <NavBar />
+        <main className={styles.main}>
         <h1 className={styles.fontandcenter}>Create Team</h1>
         <form onSubmit={submitTeam}>
             <div className="form-group">
@@ -66,8 +57,8 @@ export default function createTeam() {
             </div>
             <button disabled={!teamName || !teamCategory} type="submit" className="btn btn-primary">Submit</button>
         </form>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
     </div>
-  );
+    );
 }
