@@ -30,7 +30,7 @@ export default function Navbar() {
     }, [auth]);
 
     return (
-        <div className={styles.navbar}>
+        <div style={{ zIndex: "1" }} className={styles.navbar}>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link href="/">
                     <a className="navbar-brand">Xmas Throwdown</a>
