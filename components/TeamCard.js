@@ -23,7 +23,7 @@ export default function TeamCard(props) {
 
     useEffect(() => {
         if (team[0] && user) {
-            const isMyTeam = team.filter((athlete) => athlete.id === user.id);
+            const isMyTeam = team.find((athlete) => athlete.id === user.id);
             setMyTeam(!!isMyTeam);
         } else {
             setMyTeam(false);
