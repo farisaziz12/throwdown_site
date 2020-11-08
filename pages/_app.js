@@ -12,7 +12,6 @@ Bugsnag.start({
 const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
 
 function App({ Component, pageProps }) {
-    Bugsnag.notify(new Error("Test error"));
     return (
         <ErrorBoundary>
             <AuthProvider>
