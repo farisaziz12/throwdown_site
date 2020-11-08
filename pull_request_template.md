@@ -12,7 +12,7 @@ Please delete options that are not relevant.
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
 # Testing Instructions
-Please describe the tests required to verify your changes. Provide instructions so PR Tester can check functionality. Please also list any relevant details for your tests
+run `npm test` to run all test suites
 
 ## Screenshots
 
