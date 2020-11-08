@@ -7,7 +7,7 @@ import { timelineContent } from "../content/timeline";
 
 export default function Timeline() {
     return (
-        <VerticalTimeline>
+        <VerticalTimeline animate={false}>
             {timelineContent.map((event) => (
                 <VerticalTimelineElement
                     key={event.time}
