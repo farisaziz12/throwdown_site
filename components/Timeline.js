@@ -1,32 +1,37 @@
 import React from "react";
-import styles from "../styles/Timeline.module.css";
+import {
+    VerticalTimeline,
+    VerticalTimelineElement,
+} from "react-vertical-timeline-component";
 import { timelineContent } from "../content/timeline";
 
 export default function Timeline() {
-  return (
-    <div>
-      <div className={styles.page}>
-        <div className={styles.timeline}>
-          <div className={styles.timelinegroup}>
-            <span className={styles.timelineyear}>
-              Saturday 5th Dec 2020
-            </span>
+    return (
+        <VerticalTimeline animate={false}>
             {timelineContent.map((event) => (
-              <div className={styles.timelinebox}>
-                <div className={styles.timelinedate}>
-                  <span className={styles.timelineday}>{event.time}</span>
-                  <span className={styles.timelinemonth}>Event</span>
-                </div>
-                <div className={styles.timelinepost}>
-                  <div className={styles.timelinecontent}>
-                    <p>{event.event}</p>
-                  </div>
-                </div>
-              </div>
+                <VerticalTimelineElement
+                    key={event.time}
+                    className="vertical-timeline-element--work"
+                    contentStyle={{
+                        background: "#34ac54",
+                        color: "#fff",
+                    }}
+                    contentArrowStyle={{
+                        borderRight: "7px solid  #34ac54",
+                    }}
+                    iconStyle={{
+                        background: "#34ac54",
+                        color: "#fff",
+                    }}
+                >
+                    <h3 className="vertical-timeline-element-title">
+                        {event.time}
+                    </h3>
+                    <h4 className="vertical-timeline-element-subtitle">
+                        {event.event}
+                    </h4>
+                </VerticalTimelineElement>
             ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        </VerticalTimeline>
+    );
 }
