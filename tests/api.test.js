@@ -119,16 +119,3 @@ describe("User Can Be Created And Deleted", () => {
         }
     }
 });
-
-describe("Push Notification Sends Notification", () => {
-    test("Push Notifications Work", async () => {
-        const testNotificationTitle = "Test Notification";
-        const testNotificationMessage = "Notifications work";
-        expect(
-            await pushNotification(
-                testNotificationTitle,
-                testNotificationMessage
-            )
-        ).toBeTruthy();
-    });
-});
