@@ -9,9 +9,7 @@ export default function schedule() {
     return (
         <div className={styles.container}>
             <Metadata title={"Xmas Throwdown Schedule"} />
-            <div style={{ zIndex: "1", width: "100vw" }}>
-                <NavBar />
-            </div>
+            <NavBar />
             <main className={styles.main}>
                 <h1 className={styles.fontandcenter}>Schedule</h1>
 
